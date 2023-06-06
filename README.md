@@ -1,0 +1,1 @@
+# waste_manage_app
