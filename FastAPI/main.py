@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # from PIL import Image
 import io
-import testmodel2
+from testmodel import predict_image_from_file
 
 app = FastAPI()
 
@@ -21,45 +21,9 @@ app.add_middleware(
 )
 
 
-@app.get("/")
-async def main():
-    content = """<body>
-                  <form action="/uploadfile" enctype="multipart/form-data" method="post">
-                    <input name="file" type="file">
-                    <input type="submit">
-                  </form>
-               </body>
-            """
-    return HTMLResponse(content=content)
-
-
-@app.post("/uploadfile")
-async def create_upload_file(file: UploadFile = File(...)):
+@app.post("/")
+async def main(file: UploadFile = File(...)):
     # Read the file contents as bytes
     image_contents = await file.read()
-    category = testmodel2.predict_image_from_file(image_contents)
+    category = predict_image_from_file(image_contents)
     return {"category": category}
-
-
-# @app.get("/")
-# async def root():
-#     return {"message": "Hello World"}
-
-
-# @app.post("/upload")
-# async def receiveFile(file: bytes = File(...)):
-#     image = Image.open(io.BytesIO(file))
-#     image.show()
-
-#     return{"uploadStatus": "Complete"}
-
-
-# @app.post("/files/")
-# async def create_file(file: Annotated[bytes, File()]):
-#     return {"file_size": len(file)}
-
-
-# @app.post("/uploadfile/")
-# async def create_upload_file(file: UploadFile):
-#     category = testmodengrok2.predictImagePath(file.filename)
-#     return {"file": file, "category": category}
