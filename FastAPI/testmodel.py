@@ -153,11 +153,6 @@ from typing import Annotated
 
 # from fastapi.middleware.cors import CORSMiddleware
 
-from PIL import Image
-import io
-
-app = FastAPI()
-
 # # allow the front end to communicate with the backend
 # origins = ["http://localhost:8000"]
 

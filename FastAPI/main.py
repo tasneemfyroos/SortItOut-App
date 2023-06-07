@@ -21,20 +21,8 @@ app.add_middleware(
 )
 
 
-@app.get("/")
-async def main():
-    content = """<body>
-                  <form action="/uploadfile" enctype="multipart/form-data" method="post">
-                    <input name="file" type="file">
-                    <input type="submit">
-                  </form>
-               </body>
-            """
-    return HTMLResponse(content=content)
-
-
-@app.post("/uploadfile")
-async def create_upload_file(file: UploadFile = File(...)):
+@app.post("/")
+async def main(file: UploadFile = File(...)):
     # Read the file contents as bytes
     image_contents = await file.read()
     category = predict_image_from_file(image_contents)
