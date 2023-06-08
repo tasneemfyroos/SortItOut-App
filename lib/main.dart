@@ -47,7 +47,7 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
 
   Future _sendImage() async {
   if (_image != null) {
-    final uri = Uri.parse('http://localhost:8000/uploadfile');
+    final uri = Uri.parse('https://getclassification-rxsfwafrhq-uc.a.run.app/');
     final request = http.MultipartRequest('POST', uri);
     request.files.add(await http.MultipartFile.fromPath('file', _image!.path));
 
