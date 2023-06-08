@@ -146,20 +146,3 @@ def predict_image_from_file(image_contents):
 
     # Get the prediction
     return predict_image(example_image, model)
-
-
-from fastapi import FastAPI, File, UploadFile
-from typing import Annotated
-
-# from fastapi.middleware.cors import CORSMiddleware
-
-# # allow the front end to communicate with the backend
-# origins = ["http://localhost:8000"]
-
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=origins,
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
