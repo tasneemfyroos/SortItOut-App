@@ -14,9 +14,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Image Classification App',
+      title: 'Waste Classification App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.blueGrey,
       ),
       home: ImageCaptureScreen(),
     );
@@ -43,6 +43,7 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
     setState(() {
       _image = File(image!.path);
     });
+    _sendImage();
   }
 
   Future _sendImage() async {
@@ -90,7 +91,7 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Image Capture'),
+        title: Text('Waste Classification App'),
       ),
       body: Center(
         child: Column(
@@ -103,16 +104,8 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
               ),
             ElevatedButton(
               onPressed: _captureImage,
-              child: Text('Capture Image'),
+              child: Text('Capture Image and Send'),
             ),
-            ElevatedButton(
-              onPressed: _sendImage,
-              child: Text('Send Image'),
-            ),
-            // ElevatedButton(
-            //   onPressed: _pickImage,
-            //   child: Text('Select Image'),
-            // ),
           ],
         ),
       ),
@@ -121,31 +114,3 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
 }
 
 
-
-
-
-
-//random code 
-
-
-  // Future _captureImage() async {
-  //   final picker = ImagePicker();
-  //   final pickedImage = await picker.pickImage(source: ImageSource.camera);
-
-  //   if (pickedImage != null) {
-  //     // Image selected, handle it as needed
-  //     setState(() {
-  //     _image = File(pickedImage.path);
-  //   });
-  //     // Process or display the image
-  //   }
-  // }
-
-  // Future _pickImage() async {
-  //   final result = await FilePicker.platform.pickFiles(type: FileType.image);
-  //   if (result != null && result.files.isNotEmpty) {
-  //     setState(() {
-  //       _image = File(result.files.single.path!);
-  //     });
-  //   }
-  // }
