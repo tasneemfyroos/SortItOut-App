@@ -19,3 +19,11 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: marcellus
+      fonts:
+        - asset: images/Marcellus-Regular.ttf
+  assets:
+    - images/su0.jpg
+    - images/background.png
+    - images/camera.png
