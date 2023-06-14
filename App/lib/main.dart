@@ -57,7 +57,8 @@ class ImageCaptureScreen extends StatefulWidget {
 class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
   File? _image;
   var categoryName = "";
-  // web app 
+  // web app =
+  bool _isLoading = false;
 
   //mobile App 
   Future _captureImage() async {
@@ -68,6 +69,7 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
     final image = await picker.pickImage(source: ImageSource.camera);
     setState(() {
       _image = File(image!.path);
+      _isLoading = true;
     });
     _sendImage();
   }
@@ -92,19 +94,20 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
             categoryName = category;
           });
           // Display the category in a dialog box or any other way you prefer
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: Text('Image Category'),
-              content: Text('The image belongs to the category: $category'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text('OK'),
-                ),
-              ],
-            ),
-          );
+
+          // showDialog(
+          //   context: context,
+          //   builder: (context) => AlertDialog(
+          //     title: Text('Image Category'),
+          //     content: Text('The image belongs to the category: $category'),
+          //     actions: [
+          //       TextButton(
+          //         onPressed: () => Navigator.pop(context),
+          //         child: Text('OK'),
+                // ),
+              // ],
+            // ),
+          // );
         } else {
           // Error sending image to the server
           print('Error: ${response.statusCode}');
@@ -113,6 +116,9 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
         print('Error: $e');
       }
     }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
@@ -143,44 +149,50 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
                       borderRadius: BorderRadius.circular(10), // Rounded edges
                     ),
                   ),
-
-                if (_image != null)
-                  Positioned.fill(
-                    left: getSizes()[2],
-                    top: 5,
-                    right: getSizes()[2],
-                    bottom: getSizes()[2],
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget> [
-                          Text(
-                              "Let's SortItOut!",
-                              style: TextStyle(
+                  if (_isLoading)
+                      Positioned.fill(
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                  if (_image != null && !_isLoading)
+                    Positioned.fill(
+                      left: getSizes()[2],
+                      top: 5,
+                      right: getSizes()[2],
+                      bottom: getSizes()[2],
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget> [
+                            if(_image != null)
+                              Text(
+                                  "Let's SortItOut!",
+                                  style: TextStyle(
+                                      fontFamily: "marcellus",
+                                      fontSize: 16,
+                                  )
+                              ),
+                              Image.file(
+                              _image!,
+                              fit: BoxFit.scaleDown,
+                              ),
+                              Text(
+                                "the category is",
+                                style: TextStyle(
                                   fontFamily: "marcellus",
-                                  fontSize: 16,
-                              )
-                          ),
-                          Image.file(
-                          _image!,
-                          fit: BoxFit.scaleDown,
-                          ),
-                          Text(
-                            "the category is",
-                            style: TextStyle(
-                              fontFamily: "marcellus",
-                              fontSize: 14
-                            )
-                          ),
-                          Text(
-                              categoryName,
-                              style: TextStyle(
-                                  fontFamily: "marcellus",
-                                  fontSize: 16
-                              )
-                          ),
-                        ]
-                    )
-                  ),
+                                  fontSize: 14
+                                )
+                              ),
+                              Text(
+                                  categoryName,
+                                  style: TextStyle(
+                                      fontFamily: "marcellus",
+                                      fontSize: 16
+                                  )
+                              ),
+                          ]
+                      )
+                    ),
               ],
             ),
             InkWell(
