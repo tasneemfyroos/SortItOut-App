@@ -19,7 +19,7 @@ for param in convnext.parameters():
 convnext.classifier[2] = nn.Linear(in_features=768,out_features=26, bias=True)
 
 # Specify the path to your .pth file
-file_path = "model.pth"
+file_path = "convnext_model.pth"
 
 state_dict = torch.load(file_path, map_location=torch.device("cpu"))
 # Load the model weights from the .pth file
