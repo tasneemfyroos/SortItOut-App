@@ -50,7 +50,7 @@ class _ClothingDisposalState extends State<ClothingDisposal> {
           final site = donationSites[index];
           print(site);
           final name = site['name'] ?? 'No Name';
-          final address = site['address'] ?? 'No Address';
+          final address = site['vicinity'] ?? 'No Address';
           // Customize how you display the donation sites
           return ListTile(
             title: Text(name),
