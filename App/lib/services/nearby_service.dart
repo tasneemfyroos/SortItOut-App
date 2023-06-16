@@ -1,12 +1,12 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:googleapis_auth/auth_io.dart';
+// import 'package:googleapis_auth/auth_io.dart';
 
-Future<List<dynamic>> fetchNearbyDonationSites(
-    double latitude, double longitude) async {
+Future<List<dynamic>> fetchNearbySites(
+    double latitude, double longitude, String type) async {
   final apiKey = "";
-  final radius = 1000; // or 5000
-  final type = 'clothing_donation';
+  final radius = 500;
+  // final type = 'clothing_donation';
 
   final url = Uri.parse(
     'https://maps.googleapis.com/maps/api/place/nearbysearch/json?'
@@ -26,28 +26,29 @@ Future<List<dynamic>> fetchNearbyDonationSites(
   }
 }
 
-Future<String> fetchApiKeyFromSecretManager() async {
-  // Replace 'YOUR_SECRET_NAME' with the actual name of your secret in Google Secret Manager
-  final secretName = 'google_maps_api_key';
-
-  final client = await clientViaApplicationDefaultCredentials(scopes: const [
-    'https://www.googleapis.com/auth/cloud-platform',
-  ]);
-
-  final response = await client.send(http.Request(
-      'GET',
-      Uri.parse(
-          'https://secretmanager.googleapis.com/v1/projects/-/secrets/$secretName/versions/latest')));
-
-  if (response.statusCode == 200) {
-    final jsonResponse = await response.stream.bytesToString();
-    final data = json.decode(jsonResponse);
-    return data['payload']['data'];
-  } else {
-    throw Exception('Failed to fetch API key from Secret Manager');
-  }
-}
-
+// Future<String> fetchApiKeyFromSecretManager() async {
+//   // name of secret in Google Secret Manager
+//   final secretName = 'google_maps_api_key';
+//
+//   final client = await clientViaApplicationDefaultCredentials(scopes: const [
+//     'https://www.googleapis.com/auth/cloud-platform',
+//   ]);
+//
+//   final response = await client.send(http.Request(
+//     'GET',
+//     Uri.parse(
+//       'https://secretmanager.googleapis.com/v1/projects/-/secrets/$secretName/versions/latest',
+//     ),
+//   ));
+//
+//   if (response.statusCode == 200) {
+//     final jsonResponse = await response.stream.bytesToString();
+//     final data = json.decode(jsonResponse);
+//     return data['payload']['data'];
+//   } else {
+//     throw Exception('Failed to fetch API key from Secret Manager');
+//   }
+// }
 
 // import 'package:http/http.dart' as http;
 // import 'dart:convert';
