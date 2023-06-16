@@ -68,7 +68,6 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
 
   @override
   Widget build(BuildContext context) => Container(
-
         decoration: const BoxDecoration(
             image: DecorationImage(
           image: AssetImage("images/background.png"),
@@ -77,7 +76,20 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
-            title: Text('SortItOut'),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('SortItOut',
+                    style: TextStyle(
+                      fontFamily: "marcellus",
+                      fontSize: 18,
+                    )),
+                SizedBox(width: 8),
+                Image(
+                    image: AssetImage('images/logo.png'),
+                    height:50),
+              ],
+            ),
           ),
           body: Center(
             child: Column(

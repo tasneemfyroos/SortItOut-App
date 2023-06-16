@@ -41,8 +41,23 @@ class _ClothingDisposalState extends State<ClothingDisposal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
-        title: Text('Clothing Disposal Sites'),
+        // title: Text('Clothing Disposal Sites'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Clothing Disposal Sites',
+                style: TextStyle(
+                  fontFamily: "marcellus",
+                  fontSize: 18,
+                )),
+            SizedBox(width: 8),
+            Image(
+                image: AssetImage('images/logo.png'),
+                height:50),
+          ],
+        ),
       ),
       body: ListView.builder(
         itemCount: donationSites.length,
@@ -53,8 +68,16 @@ class _ClothingDisposalState extends State<ClothingDisposal> {
           final address = site['vicinity'] ?? 'No Address';
           // Customize how you display the donation sites
           return ListTile(
-            title: Text(name),
-            subtitle: Text(address),
+            title: Text(name,
+                style: TextStyle(
+                  fontFamily: "marcellus",
+                  fontSize: 16,
+                )),
+            subtitle: Text(address,
+                style: TextStyle(
+                  fontFamily: "marcellus",
+                  fontSize: 12,
+                )),
           );
         },
       ),
