@@ -14,7 +14,7 @@ void main() {
 // image bg width, image bg height, padding of image
 // circle width, padding of icon
 List<double> getSizes() {
-  return [240, 360, 20, 95, 15];
+  return [360, 500, 20, 95, 15];
 }
 
 MaterialColor getColor() {
