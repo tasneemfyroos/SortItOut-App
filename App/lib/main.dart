@@ -17,6 +17,8 @@ List<double> getSizes() {
   return [300, 450, 20, 95, 15];
 }
 
+List<double> sizes = [300, 450, 20, 95, 15];
+
 MaterialColor getColor() {
   return new MaterialColor(0xFF758d93,
       <int,Color>{50: Color(0xFFE3F2FD), // Shade 50
@@ -49,6 +51,10 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final double deviceWidth = MediaQuery.of(context).size.width;
+    final double deviceHeight = MediaQuery.of(context).size.height;
+    sizes[0] = deviceWidth*0.8;
+    sizes[1] = deviceHeight*0.6;
     return MaterialApp(
       title: 'Waste Classification App',
       theme: ThemeData(
@@ -71,15 +77,24 @@ class _MyAppState extends State<MyApp> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.book),
+              // icon: Icon(Icons.book),
+              icon: Image(
+                  image: AssetImage('images/infoLogo.png'),
+                  height:deviceHeight/15),
               label: 'Educational',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_bag),
+              // icon: Icon(Icons.shopping_bag),
+              icon: Image(
+                  image: AssetImage('images/mapLogo.png'),
+                  height:deviceHeight/15),
               label: 'Clothing Disposal',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.computer),
+              icon: Image(
+                  image: AssetImage('images/cameraNew.png'),
+                  height:deviceHeight/15),
+              // icon: Icon(Icons.computer),
               label: 'E-waste Disposal',
             ),
           ],

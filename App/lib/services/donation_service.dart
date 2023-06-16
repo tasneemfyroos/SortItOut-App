@@ -4,7 +4,7 @@ import 'package:googleapis_auth/auth_io.dart';
 
 Future<List<dynamic>> fetchNearbyDonationSites(
     double latitude, double longitude) async {
-  final apiKey = "AIzaSyC-DLEH0Ikx3s9oF0JL0BUNi1CofmsXPbc";
+  final apiKey = "";
   final radius = 1000; // or 5000
   final type = 'clothing_donation';
 

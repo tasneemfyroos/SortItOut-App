@@ -68,6 +68,7 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
 
   @override
   Widget build(BuildContext context) => Container(
+
         decoration: const BoxDecoration(
             image: DecorationImage(
           image: AssetImage("images/background.png"),
@@ -150,7 +151,7 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
                             bottom: getSizes()[4],
                             child: Row(children: [
                               Image(
-                                image: AssetImage('images/camera.png'),
+                                image: AssetImage('images/cameraNew.png'),
                                 fit: BoxFit.contain,
                               )
                             ]))
