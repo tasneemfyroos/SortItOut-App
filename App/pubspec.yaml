@@ -24,7 +24,8 @@ flutter:
       fonts:
         - asset: images/Marcellus-Regular.ttf
   assets:
-    - images/su0.jpg
+    - images/mapLogo.png
+    - images/infoLogo.png
     - images/background.png
-    - images/camera.png
+    - images/cameraNew.png
     - images/backgroundnew.png
