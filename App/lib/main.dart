@@ -14,7 +14,7 @@ void main() {
 // image bg width, image bg height, padding of image
 // circle width, padding of icon
 List<double> getSizes() {
-  return sizes;
+  return [300, 450, 20, 95, 15];
 }
 
 List<double> sizes = [300, 450, 20, 95, 15];
@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
 
   final List<Widget> _screens = [
     ImageCaptureScreen(),
-    Educational(),
+    WasteSortingQuiz(),
     ClothingDisposal(),
     EwasteDisposal(),
   ];
