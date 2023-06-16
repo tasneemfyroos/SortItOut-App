@@ -69,7 +69,7 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
   Widget build(BuildContext context) => Container(
         decoration:  const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("images/background.png"),
+            image: AssetImage("images/backgroundnew.png"),
             fit: BoxFit.cover,
           )
         ),
