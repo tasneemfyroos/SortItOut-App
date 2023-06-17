@@ -19,8 +19,8 @@ class _ClothingDisposalState extends State<ClothingDisposal> {
 
   Future<void> _fetchDonationSites() async {
     // Check if location permissions are granted
-    final status = await Permission.location.request();
-    if (status.isGranted) {
+    final status = await Permission.locationWhenInUse.request();
+    if (status.isGranted || status.isLimited) {
       final position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
@@ -33,6 +33,9 @@ class _ClothingDisposalState extends State<ClothingDisposal> {
       setState(() {
         donationSites = sites;
       });
+    } else if (status.isDenied) {
+      // Permission denied
+      print('Location permission denied');
     } else {
       // Permission denied
       print('Location permission denied');
