@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../services/nearby_service.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class ClothingDisposal extends StatefulWidget {
   @override
@@ -10,6 +11,7 @@ class ClothingDisposal extends StatefulWidget {
 
 class _ClothingDisposalState extends State<ClothingDisposal> {
   List<dynamic> donationSites = [];
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -21,6 +23,9 @@ class _ClothingDisposalState extends State<ClothingDisposal> {
     // Check if location permissions are granted
     final status = await Permission.location.request();
     if (status.isGranted) {
+      setState(() {
+        isLoading=true;
+      });
       final position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
@@ -31,7 +36,10 @@ class _ClothingDisposalState extends State<ClothingDisposal> {
           await fetchNearbySites(latitude, longitude, "clothing_donation");
 
       setState(() {
+    
         donationSites = sites;
+        isLoading = false;
+
       });
     } else {
       // Permission denied
@@ -57,27 +65,45 @@ class _ClothingDisposalState extends State<ClothingDisposal> {
           ],
         ),
       ),
-      body: ListView.builder(
-        itemCount: donationSites.length,
-        itemBuilder: (context, index) {
-          final site = donationSites[index];
-          final name = site['name'] ?? 'No Name';
-          final address = site['vicinity'] ?? 'No Address';
-
-          return ListTile(
-            title: Text(name,
+      body:isLoading
+        ? Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Fetching closest site to you',
                 style: TextStyle(
-                  fontFamily: "marcellus",
+                  fontFamily: 'marcellus',
                   fontSize: 16,
-                )),
-            subtitle: Text(address,
-                style: TextStyle(
-                  fontFamily: "marcellus",
-                  fontSize: 12,
-                )),
-          );
-        },
-      ),
+                ),
+              ),
+              SizedBox(height: 16),
+              SpinKitWave(
+                color: Color(0xFF132A32),
+                size: 50.0,
+              ),
+            ],
+          )        
+        : ListView.builder(
+          itemCount: donationSites.length,
+          itemBuilder: (context, index) {
+            final site = donationSites[index];
+            final name = site['name'] ?? 'No Name';
+            final address = site['vicinity'] ?? 'No Address';
+
+            return ListTile(
+              title: Text(name,
+                  style: TextStyle(
+                    fontFamily: "marcellus",
+                    fontSize: 16,
+                  )),
+              subtitle: Text(address,
+                  style: TextStyle(
+                    fontFamily: "marcellus",
+                    fontSize: 12,
+                  )),
+            );
+          },
+        ),
     );
   }
 }

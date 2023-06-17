@@ -11,10 +11,23 @@ class EducationalPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Educational Page'),
       ),
+
       body: ListView(
         children: [
           ListTile(
-            title: Text('Articles',
+            title: Text('Want to Learn about Waste Sorting? Here is a list of resourses! Click on the buttons to read/watch \n Dont forget to take the quiz at the end!',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Color(0xFF664229),
+              ),
+            )
+          ),
+          Divider(height: 20, // Set the height of the divider line
+            thickness: 4, // Set the thickness of the divider line
+            ),
+          ListTile(
+            title: Text('Where to throw away waste in Edmonton',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
@@ -62,6 +75,17 @@ class EducationalPage extends StatelessWidget {
               },
             ),
           ),
+           Divider(height: 20, // Set the height of the divider line
+            thickness: 4, // Set the thickness of the divider line
+            ),
+          ListTile(
+            title: Text('What happens to waste you throw away?',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            )
+          ),
           Card(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(100), // Adjust the radius as desired
@@ -104,6 +128,42 @@ class EducationalPage extends StatelessWidget {
               },
             ),
           ),
+           Divider(height: 20, // Set the height of the divider line
+            thickness: 4, // Set the thickness of the divider line
+            ),
+          ListTile(
+            title: Text('Click below to save on fertilizer and soil, produced by composting food and yard waste collected from your community',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+            )
+          ),
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(100), // Adjust the radius as desired
+            ),
+            color: getColor()[200],
+            child:
+            ListTile(
+              title: Text('Compost giveaway!'),
+              onTap: () {
+                // Open article link using WebView
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WebPage(
+                      url: 'https://www.calgary.ca/waste/residential/green-cart-compost-giveaway.html',
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          Divider(height: 10, // Set the height of the divider line
+            thickness: 4, // Set the thickness of the divider line
+            ),
+
           ListTile(
               title: Text(' \nTest Your Knowledge',
                 style: TextStyle(

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../services/nearby_service.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 
 class EwasteDisposal extends StatefulWidget {
   @override
@@ -10,6 +12,7 @@ class EwasteDisposal extends StatefulWidget {
 
 class _EwasteDisposalState extends State<EwasteDisposal> {
   List<dynamic> ewasteSites = [];
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -21,6 +24,10 @@ class _EwasteDisposalState extends State<EwasteDisposal> {
     // Check if location permissions are granted
     final status = await Permission.location.request();
     if (status.isGranted) {
+      setState(() {
+        isLoading=true;
+      });
+
       final position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high,
       );
@@ -32,6 +39,7 @@ class _EwasteDisposalState extends State<EwasteDisposal> {
 
       setState(() {
         ewasteSites = sites;
+        isLoading = false;
       });
     } else {
       // Permission denied
@@ -57,7 +65,25 @@ class _EwasteDisposalState extends State<EwasteDisposal> {
           ],
         ),
       ),
-      body: ListView.builder(
+      body:isLoading
+        ? Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Fetching closest site to you',
+                style: TextStyle(
+                  fontFamily: 'marcellus',
+                  fontSize: 16,
+                ),
+              ),
+              SizedBox(height: 16),
+              SpinKitWave(
+                color: Color(0xFF132A32),
+                size: 50.0,
+              ),
+            ],
+          )
+      : ListView.builder(
         itemCount: ewasteSites.length,
         itemBuilder: (context, index) {
           final site = ewasteSites[index];
