@@ -17,6 +17,7 @@ dependencies:
   googleapis_auth: ^1.4.1
   permission_handler: ^10.3.0
   camera: ^0.10.5+2
+  webview_flutter: ^2.0.0
 
 dev_dependencies:
   flutter_test:

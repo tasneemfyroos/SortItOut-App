@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
 
   final List<Widget> _screens = [
     ImageCaptureScreen(),
-    WasteSortingQuiz(),
+    EducationalPage(),
     ClothingDisposal(),
     EwasteDisposal(),
   ];
