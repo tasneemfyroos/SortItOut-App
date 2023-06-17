@@ -1,177 +1,187 @@
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart' as WebViewFlutter;
+import 'package:flutter_app_testing/screens/quizPage.dart';
 
 import '../main.dart';
 
-
-class WasteSortingQuiz extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme.apply(
-      fontFamily: 'marcellus',
-    );
-    return MaterialApp(
-      // title: 'Waste Sorting Quiz',
-      theme: ThemeData(
-        primarySwatch: getColor(),
-        textTheme: textTheme,
-      ),
-      home: QuizPage(),
-    );
-  }
-}
-
-class QuizPage extends StatefulWidget {
-  @override
-  _QuizPageState createState() => _QuizPageState();
-}
-
-class _QuizPageState extends State<QuizPage> {
-  int currentQuestionIndex = 0;
-  int score = 0;
-  bool isAnswered = false;
-  bool isCorrect = false;
-
-  List<Question> questions = [
-    Question(
-      'Which bin should you use for disposing of plastic bottles?',
-      ['Green bin', 'Blue bin', 'Black bin'],
-      1,
-    ),
-    Question(
-      'What should you do with used batteries?',
-      ['Recycle them', 'Throw them in the trash', 'Compost them'],
-      0,
-    ),
-    Question(
-      'Which bin should you use for paper and cardboard?',
-      ['Green bin', 'Blue bin', 'Black bin'],
-      1,
-    ),
-  ];
-
-  void checkAnswer(int selectedIndex) {
-    if (!isAnswered) {
-      bool correct = selectedIndex == questions[currentQuestionIndex].correctAnswerIndex;
-      if (correct) {
-        score++;
-      }
-
-      setState(() {
-        isAnswered = true;
-        isCorrect = correct;
-      });
-
-      Future.delayed(Duration(seconds: 2), () {
-        setState(() {
-          isAnswered = false;
-          isCorrect = false;
-          if (currentQuestionIndex < questions.length - 1) {
-            currentQuestionIndex++;
-          } else {
-            showResultDialog();
-          }
-        });
-      });
-    }
-  }
-
-  void showResultDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Quiz Complete'),
-          content: Text('Your score: $score/${questions.length}'),
-          actions: [
-            TextButton(
-              child: Text('Restart'),
-              onPressed: () {
-                setState(() {
-                  currentQuestionIndex = 0;
-                  score = 0;
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
+class EducationalPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
+        title: Text('Educational Page'),
+      ),
+      body: ListView(
+        children: [
+          ListTile(
+            title: Text('Articles',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            )
+          ),
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(100), // Adjust the radius as desired
+            ),
+            color: getColor()[200],
+            child: ListTile(
+              title: Text('Hazardous and electronic waste deposit site directory in Edmonton '),
+              onTap: () {
+                // Open article link using WebView
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WebPage(
+                      url: 'https://www.edmonton.ca/programs_services/garbage_waste/eco-stations',
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(100), // Adjust the radius as desired
+            ),
+            color: getColor()[200],
+            child:
+            ListTile(
+              title: Text('Compost Facility in Edmonton'),
+              onTap: () {
+                // Open article link using WebView
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WebPage(
+                      url: 'https://www.edmonton.ca/programs_services/garbage_waste/edmonton-composting-facility#:~:text=Food%20scraps%20and%20yard%20waste%20collected%20from%20residents%20are%20sent,of%20our%20contracted%20regional%20partners',
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(100), // Adjust the radius as desired
+            ),
+            color: getColor()[200],
+            child:
+            ListTile(
+              title: Text('What happens whens you compost?'),
+              onTap: () {
+                // Open first YouTube video using WebView
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WebPage(
+                      url: 'https://www.youtube.com/watch?v=oFlsjRXbnSk',
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(100), // Adjust the radius as desired
+            ),
+            color: getColor()[200],
+            child:
+            ListTile(
+              title: Text('What happens to the stuff in your recycling bin?'),
+              onTap: () {
+                // Open second YouTube video using WebView
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WebPage(
+                      url: 'https://www.youtube.com/watch?v=s4LZwCDaoQM',
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          ListTile(
+              title: Text(' \nTest Your Knowledge',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              )
+          ),
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(100), // Adjust the radius as desired
+            ),
+            color: getColor()[200],
+            child:
+            ListTile(
+              title: Text('Waste Sorting Quiz'),
+              onTap: () {
+                // Open the waste sorting quiz page
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WasteSortingQuizPage(),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+class WebPage extends StatelessWidget {
+  final String url;
+  WebPage({required this.url});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('WebView'),
+      ),
+      body: WebViewFlutter.WebView(
+        initialUrl: url,
+        javascriptMode: WebViewFlutter.JavascriptMode.unrestricted,
+      ),
+    );
+  }
+}
+class WasteSortingQuizPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Waste Sorting Quiz'),
+      ),
+      body: Center(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Waste Sorting Quiz',
-                style: TextStyle(
-                  fontFamily: "marcellus",
-                  fontSize: 18,
-                )),
-            SizedBox(width: 8),
-            Image(
-                image: AssetImage('images/logo.png'),
-                height:50),
-          ],
-        ),
-        // title: Text('Waste Sorting Quiz'),
-
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
             Text(
-              'Question ${currentQuestionIndex + 1}/${questions.length}',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              'Description of Waste Sorting Quiz',
+              style: TextStyle(fontSize: 18),
             ),
-            SizedBox(height: 16.0),
-            Text(
-              questions[currentQuestionIndex].questionText,
-              style: TextStyle(fontSize: 18.0),
-            ),
-            SizedBox(height: 16.0),
-            Column(
-              children: [
-                for (int i = 0; i < questions[currentQuestionIndex].choices.length; i++)
-                  ListTile(
-                    title: Text(questions[currentQuestionIndex].choices[i]),
-                    onTap: () => checkAnswer(i),
-                    tileColor: isAnswered && i == questions[currentQuestionIndex].correctAnswerIndex
-                        ? getColor()[700]
-                        : isAnswered && i != questions[currentQuestionIndex].correctAnswerIndex
-                            ? getColor()[600]
-                            : null,
-                  ),
-              ],
-            ),
-            SizedBox(height: 16.0),
-            Visibility(
-              visible: isAnswered,
-              child: Text(
-                isCorrect ? 'Correct!' : 'Wrong!',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                  color: isCorrect ? Colors.green : Colors.red,
-                ),
-              ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              child: Text('Take Quiz'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => QuizPage()),
+                );
+                // material
+                // Handle quiz button tap
+              },
             ),
           ],
         ),
       ),
     );
   }
-}
-
-class Question {
-  final String questionText;
-  final List<String> choices;
-  final int correctAnswerIndex;
-
-  Question(this.questionText, this.choices, this.correctAnswerIndex);
 }
