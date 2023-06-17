@@ -16,8 +16,8 @@ dependencies:
   googleapis: ^11.2.0
   googleapis_auth: ^1.4.1
   google_maps_flutter: ^2.3.1
-  permission_handler: ^10.3.0
   camera: ^0.10.5+2
+  permission_handler: ^12.3.0
 
 dev_dependencies:
   flutter_test:
