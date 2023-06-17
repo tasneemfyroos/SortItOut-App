@@ -4,6 +4,8 @@ import 'package:flutter_app_testing/main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_app_testing/screens/eWasteDisposal.dart';
+import 'package:flutter_app_testing/screens/clothingDisposal.dart';
 
 class ImageCaptureScreen extends StatefulWidget {
   @override
@@ -68,32 +70,45 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
 
   @override
   Widget build(BuildContext context) => Container(
-        decoration:  const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("images/backgroundnew.png"),
-            fit: BoxFit.cover,
-          )
-        ),
-    child: Scaffold(
-      backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        title: Text('Waste Classification App'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Stack(
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage("images/background.png"),
+          fit: BoxFit.cover,
+        )),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                  Container(
-                    width: getSizes()[0],
-                    height: getSizes()[1],
-                    decoration: BoxDecoration(
-                      color: getColor()[500], // Rectangle color
-                      borderRadius: BorderRadius.circular(10), // Rounded edges
+                Text('SortItOut',
+                    style: TextStyle(
+                      fontFamily: "marcellus",
+                      fontSize: 18,
+                    )),
+                SizedBox(width: 8),
+                Image(
+                    image: AssetImage('images/logo.png'),
+                    height:50),
+              ],
+            ),
+          ),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Stack(
+                  children: [
+                    Container(
+                      width: getSizes()[0],
+                      height: getSizes()[1],
+                      decoration: BoxDecoration(
+                        color: getColor()[500], // Rectangle color
+                        borderRadius:
+                            BorderRadius.circular(10), // Rounded edges
+                      ),
                     ),
-                  ),
                     if (_isLoading)
                       Positioned.fill(
                         child: Center(
@@ -115,19 +130,54 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
                                         fontFamily: "marcellus",
                                         fontSize: 16,
                                       )),
-                                Image.file(
-                                  _image!,
-                                  fit: BoxFit.scaleDown,
+                                AspectRatio(
+                                  aspectRatio: 1.0, // Set the desired aspect ratio (1:1 in this case)
+                                  child: Image.file(
+                                    _image!,
+                                    fit: BoxFit.scaleDown, // Adjust the BoxFit option as per your requirement
+                                  ),
                                 ),
-                                Text("the category is",
+                                Text("The category is:",
                                     style: TextStyle(
                                         fontFamily: "marcellus", fontSize: 14)),
                                 Text(categoryName,
                                     style: TextStyle(
-                                        fontFamily: "marcellus", fontSize: 16)),
-                                // Text(binContents,
-                                //     style: TextStyle(
-                                //         fontFamily: "marcellus", fontSize: 14)),
+                                        fontFamily: "marcellus", fontSize: 16, color:Color(0xFF664229))),
+                                Text("The bin classification is:",
+                                    style: TextStyle(
+                                        fontFamily: "marcellus", fontSize: 14)),
+                                Text(binContents,
+                                    style: TextStyle(
+                                        fontFamily: "marcellus", fontSize: 16, color:Color(0xFF664229))),
+                                
+                                if (categoryName=="Electronic waste" || categoryName=="Clothing" || categoryName=="Shoes")
+                                  Text("Click Here to see the closest site",
+                                      style: TextStyle(
+                                          fontFamily: "marcellus", fontSize: 12)),
+                                  if (categoryName =="Electronic waste" )
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          // Add your button action here
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(builder: (context) => EwasteDisposal()),
+                                            );
+                                        },
+                                        child: Text('E-Waste Disposal Sites'),
+                                      ),
+                                  if (categoryName == "Clothing" || categoryName == "Shoes")
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          // Add your button action here
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(builder: (context) => ClothingDisposal()),
+                                            );
+                                        },
+                                        child: Text('Clothing/Shoes Donation Sites'),
+                                      ),
+
+                                
                               ])),
                   ],
                 ),

@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 
+import '../main.dart';
+
 
 class WasteSortingQuiz extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme.apply(
+      fontFamily: 'marcellus',
+    );
     return MaterialApp(
-      title: 'Waste Sorting Quiz',
+      // title: 'Waste Sorting Quiz',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: getColor(),
+        textTheme: textTheme,
       ),
       home: QuizPage(),
     );
@@ -97,7 +103,22 @@ class _QuizPageState extends State<QuizPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Waste Sorting Quiz'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Waste Sorting Quiz',
+                style: TextStyle(
+                  fontFamily: "marcellus",
+                  fontSize: 18,
+                )),
+            SizedBox(width: 8),
+            Image(
+                image: AssetImage('images/logo.png'),
+                height:50),
+          ],
+        ),
+        // title: Text('Waste Sorting Quiz'),
+
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -121,9 +142,9 @@ class _QuizPageState extends State<QuizPage> {
                     title: Text(questions[currentQuestionIndex].choices[i]),
                     onTap: () => checkAnswer(i),
                     tileColor: isAnswered && i == questions[currentQuestionIndex].correctAnswerIndex
-                        ? Colors.green
+                        ? getColor()[700]
                         : isAnswered && i != questions[currentQuestionIndex].correctAnswerIndex
-                            ? Colors.red
+                            ? getColor()[600]
                             : null,
                   ),
               ],
