@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_app_testing/screens/eWasteDisposal.dart';
 import 'package:flutter_app_testing/screens/clothingDisposal.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 
 class ImageCaptureScreen extends StatefulWidget {
   @override
@@ -18,8 +20,42 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
   var binContents;
   bool _isLoading = false;
 
+  // Request camera permission
+  Future<bool> _requestCameraPermission() async {
+    PermissionStatus status = await Permission.camera.request();
+    return status == PermissionStatus.granted;
+  }
+
+  // Check if camera permission is granted
+  Future<bool> _checkCameraPermission() async {
+    PermissionStatus status = await Permission.camera.status;
+    return status == PermissionStatus.granted;
+  }
+
   //mobile App
   Future _captureImage() async {
+    bool granted = await _checkCameraPermission();
+    if (!granted) {
+      bool requested = await _requestCameraPermission();
+      if (!requested) {
+        showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: Text('Camera Permission'),
+                content: Text('Camera permission was not granted. Please grant the permission in order to capture an image.'),
+                actions: [
+                  TextButton(
+                    child: Text('OK'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            );        
+          return;
+      }
+    }
     setState(() {
       categoryName = "";
       binContents = "";
