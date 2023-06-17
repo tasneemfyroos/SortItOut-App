@@ -39,9 +39,10 @@ class _CameraPageState extends State<CameraPage> {
   @override
   void initState() {
     super.initState();
+    _checkPermissions(); // Check camera permissions when initializing the widget
     _capturedImage = File('');
     _initializeCameraControllerFuture = _initializeCameraController();
-    _checkPermissions(); // Check camera permissions when initializing the widget
+    
 
   }
 
@@ -71,6 +72,8 @@ class _CameraPageState extends State<CameraPage> {
   Future<void> _initializeCameraController() async {
     final cameras = await availableCameras();
     final firstCamera = cameras.first;
+
+    // if (!_checkPermissions())
 
     _cameraController = CameraController(
       firstCamera,
