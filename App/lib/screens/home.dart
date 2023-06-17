@@ -4,6 +4,7 @@ import 'package:flutter_app_testing/main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:camera/camera.dart';
 
 class ImageCaptureScreen extends StatefulWidget {
   @override
@@ -22,13 +23,44 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
       categoryName = "";
       binContents = "";
     });
-    final picker = ImagePicker();
-    final image = await picker.pickImage(source: ImageSource.camera);
-    setState(() {
-      _image = File(image!.path);
-      _isLoading = true;
+
+      final cameras = await availableCameras();
+      final frontCamera = cameras.firstWhere(
+      (camera) => camera.lensDirection == CameraLensDirection.front,
+      );
+
+
+      final picker = ImagePicker();
+      final image = await picker.pickImage(
+        source: ImageSource.camera,
+        // preferredCameraDevice: frontCamera,
+        maxWidth: 1024,
+        maxHeight: 1024,
+      );
+      if (image != null) {
+        final cameraController = CameraController(frontCamera, ResolutionPreset.high);
+        await cameraController.initialize();
+        final imagePath = image.path;
+        await cameraController.startImageStream((image) async {
+        if (cameraController.value.isStreamingImages) {
+          await cameraController.stopImageStream();
+          await cameraController.dispose();
+        }
+      setState(() {
+        _image = File(imagePath);
+        _isLoading = true;
+      });
+      _sendImage();
     });
-    _sendImage();
+    await cameraController.takePicture();
+  }
+      // if (image != null) {
+      // setState(() {
+      //   _image = File(image.path);
+      //   _isLoading = true;
+      // });
+      //   _sendImage();
+      // }   
   }
 
   Future _sendImage() async {
@@ -115,10 +147,13 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
                                         fontFamily: "marcellus",
                                         fontSize: 16,
                                       )),
-                                Image.file(
-                                  _image!,
-                                  fit: BoxFit.scaleDown,
-                                ),
+                                  AspectRatio(
+                                      aspectRatio: 1.0, // Set the desired aspect ratio (1:1 in this case)
+                                      child: Image.file(
+                                        _image!,
+                                        fit: BoxFit.contain, // Adjust the BoxFit option as per your requirement
+                                      ),
+                                    ),
                                 Text("the category is",
                                     style: TextStyle(
                                         fontFamily: "marcellus", fontSize: 14)),
