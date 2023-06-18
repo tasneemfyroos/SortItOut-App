@@ -3,7 +3,7 @@ import 'dart:convert';
 // import 'package:googleapis_auth/auth_io.dart';
 
 Future<List<dynamic>> fetchNearbySites(
-    double latitude, double longitude, String type) async {
+    double latitude, double longitude, String keyword) async {
   final apiKey = "";
   final radius = 500;
   // final type = 'clothing_donation';
@@ -12,7 +12,7 @@ Future<List<dynamic>> fetchNearbySites(
     'https://maps.googleapis.com/maps/api/place/nearbysearch/json?'
     'location=$latitude,$longitude'
     '&radius=$radius'
-    '&type=$type'
+    '&keyword=$keyword'
     '&key=$apiKey',
   );
 
