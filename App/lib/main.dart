@@ -14,7 +14,7 @@ void main() {
 // image bg width, image bg height, padding of image
 // circle width, padding of icon
 List<double> getSizes() {
-  return [320, 480, 20, 95, 15];
+  return [320, 450, 20, 95, 15];
 }
 
 List<double> sizes = [320, 480, 20, 95, 15];

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
+import '../main.dart';
 import '../services/nearby_service.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -90,18 +91,25 @@ class _ClothingDisposalState extends State<ClothingDisposal> {
             final name = site['name'] ?? 'No Name';
             final address = site['vicinity'] ?? 'No Address';
 
-            return ListTile(
-              title: Text(name,
-                  style: TextStyle(
-                    fontFamily: "marcellus",
-                    fontSize: 16,
-                  )),
-              subtitle: Text(address,
-                  style: TextStyle(
-                    fontFamily: "marcellus",
-                    fontSize: 12,
-                  )),
-            );
+            return Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100), // Adjust the radius as desired
+                      ),
+                      color: getColor()[100],
+                      child:
+                      ListTile(
+                        title: Text(name,
+                            style: TextStyle(
+                              fontFamily: "marcellus",
+                              fontSize: 16,
+                            )),
+                        subtitle: Text(address,
+                            style: TextStyle(
+                              fontFamily: "marcellus",
+                              fontSize: 12,
+                            )),
+                      )
+              );
           },
         ),
     );

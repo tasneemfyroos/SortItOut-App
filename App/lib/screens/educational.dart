@@ -30,7 +30,7 @@ class EducationalPage extends StatelessWidget {
             title: Text('Where to throw away waste in Edmonton',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 20,
+                fontSize: 18,
               ),
             )
           ),
@@ -82,7 +82,7 @@ class EducationalPage extends StatelessWidget {
             title: Text('What happens to waste you throw away?',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 20,
+                fontSize: 16,
               ),
             )
           ),
