@@ -5,7 +5,6 @@ import '../main.dart';
 import '../services/nearby_service.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-
 class EwasteDisposal extends StatefulWidget {
   @override
   _EwasteDisposalState createState() => _EwasteDisposalState();
@@ -23,10 +22,10 @@ class _EwasteDisposalState extends State<EwasteDisposal> {
 
   Future<void> _fetchEwasteSites() async {
     // Check if location permissions are granted
-    final status = await Permission.location.request();
+    final status = await Permission.locationWhenInUse.request();
     if (status.isGranted) {
       setState(() {
-        isLoading=true;
+        isLoading = true;
       });
 
       final position = await Geolocator.getCurrentPosition(
@@ -66,52 +65,52 @@ class _EwasteDisposalState extends State<EwasteDisposal> {
           ],
         ),
       ),
-      body:isLoading
-        ? Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Fetching closest site to you',
-                style: TextStyle(
-                  fontFamily: 'marcellus',
-                  fontSize: 16,
+      body: isLoading
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Fetching closest site to you',
+                  style: TextStyle(
+                    fontFamily: 'marcellus',
+                    fontSize: 16,
+                  ),
                 ),
-              ),
-              SizedBox(height: 16),
-              SpinKitWave(
-                color: Color(0xFF132A32),
-                size: 50.0,
-              ),
-            ],
-          )
-      : ListView.builder(
-        itemCount: ewasteSites.length,
-        itemBuilder: (context, index) {
-          final site = ewasteSites[index];
-          final name = site['name'] ?? 'No Name';
-          final address = site['vicinity'] ?? 'No Address';
+                SizedBox(height: 16),
+                SpinKitWave(
+                  color: Color(0xFF132A32),
+                  size: 50.0,
+                ),
+              ],
+            )
+          : ListView.builder(
+              itemCount: ewasteSites.length,
+              itemBuilder: (context, index) {
+                final site = ewasteSites[index];
+                final name = site['name'] ?? 'No Name';
+                final address = site['vicinity'] ?? 'No Address';
 
-          return Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100), // Adjust the radius as desired
-                ),
-                color: getColor()[200],
-                child:
-                ListTile(
-                  title: Text(name,
-                      style: TextStyle(
-                        fontFamily: "marcellus",
-                        fontSize: 16,
-                      )),
-                  subtitle: Text(address,
-                      style: TextStyle(
-                        fontFamily: "marcellus",
-                        fontSize: 12,
-                      )),
-                ),
-            );
-        },
-      ),
+                return Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                        100), // Adjust the radius as desired
+                  ),
+                  color: getColor()[200],
+                  child: ListTile(
+                    title: Text(name,
+                        style: TextStyle(
+                          fontFamily: "marcellus",
+                          fontSize: 16,
+                        )),
+                    subtitle: Text(address,
+                        style: TextStyle(
+                          fontFamily: "marcellus",
+                          fontSize: 12,
+                        )),
+                  ),
+                );
+              },
+            ),
     );
   }
 }
