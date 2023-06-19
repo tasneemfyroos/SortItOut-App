@@ -231,7 +231,7 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                ClothingDisposal()),
+                                                EwasteDisposal()),
                                       );
                                     },
                                     child: Text('battery Disposal Sites'),
