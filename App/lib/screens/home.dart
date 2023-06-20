@@ -210,47 +210,47 @@ class _ImageCaptureScreenState extends State<ImageCaptureScreen> {
                                       style: TextStyle(
                                           fontFamily: "marcellus",
                                           fontSize: 12)),
-                                if (categoryName == "Electronic waste")
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      // Add your button action here
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                EwasteDisposal()),
-                                      );
-                                    },
-                                    child: Text('E-Waste Disposal Sites'),
-                                  ),
-                                if (categoryName == "Battery")
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      // Add your button action here
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                EwasteDisposal()),
-                                      );
-                                    },
-                                    child: Text('battery Disposal Sites'),
-                                  ),
-                                if (categoryName == "Clothing" ||
-                                    categoryName == "Shoes")
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      // Add your button action here
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ClothingDisposal()),
-                                      );
-                                    },
-                                    child:
-                                        Text('Clothing/Shoes Donation Sites'),
-                                  ),
+                                  if (categoryName == "Electronic waste")
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        // Add your button action here
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EwasteDisposal()),
+                                        );
+                                      },
+                                      child: Text('E-Waste Disposal Sites'),
+                                    ),
+                                  if (categoryName == "Battery")
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        // Add your button action here
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EwasteDisposal()),
+                                        );
+                                      },
+                                      child: Text('Battery Disposal Sites'),
+                                    ),
+                                  if (categoryName == "Clothing" ||
+                                      categoryName == "Shoes")
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        // Add your button action here
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ClothingDisposal()),
+                                        );
+                                      },
+                                      child:
+                                          Text('Clothing/Shoes Donation Sites'),
+                                    ),
                               ])),
                   ],
                 ),
