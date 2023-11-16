@@ -3,6 +3,5 @@ SortItOut is a cross-platform smartphone app that uses computer vision to help i
 
 # Demo Video 
 
-https://github.com/tasneemfyroos/SortItOut-App/assets/135737150/5c737236-9a12-4023-bfa2-78004f41c074
-
+https://github.com/tasneemfyroos/SortItOut-App/assets/135737150/6cb03ade-f734-4e13-be3d-b0e2bb01bea3
 
